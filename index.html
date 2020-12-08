@@ -209,7 +209,7 @@ config = {"factor":65536.0,"globalMinZoom":9,"globalMaxZoom":20,"tileSize":512,"
       const view = new ol.View({
         projection: projection,
         center: [0, 0],
-        zoom: 0,
+        zoom: 7,
         minZoom: 0,
         maxZoom: config.globalMaxZoom - config.globalMinZoom
       });
@@ -306,7 +306,7 @@ config = {"factor":65536.0,"globalMinZoom":9,"globalMaxZoom":20,"tileSize":512,"
                     }
                   });
 
-                  currentSelectedLayer = layerKey;
+                  currentSelectedLayer = layerKey;                
                 }
               };
 
@@ -414,5 +414,236 @@ config = {"factor":65536.0,"globalMinZoom":9,"globalMaxZoom":20,"tileSize":512,"
         map.addLayer(vectorLayer);
       }
     </script>
-  </body>
-</html>
+    <script>
+      // gmpiper 18 November 2020
+      //
+      // Germ of this script provided by Reddit u/dopazz, 17 November 2020
+      //
+      // Let's figure out how to create three different sets of coordinates:
+      // 1. Regions - high-level areas of the map, viewable from low zoom level
+      // 2. Neighborhoods - named areas
+      // 3. Structures - features created by Coastal users
+      //
+      // gmpiper 20 November 2020
+      // All Coastal Feature Arrays have the same structure:
+      // x-value, z-value, Text1, Text2, Text3, textRotation(degrees), Note
+      
+      var arrayCoastalPOI = [ // POI = Points of Interest
+        [  -61, 80,'\uf13d','Spawn Ship',,,			        ],
+        [   32, 101,'\uf13d','Event Ship',,,			        ],
+        [   97, 91,'\uf13d','Tim, Tom, Tam','\uf51e,\uf522',,			        ],
+        [  -2050, -1935,'\uf494','Locketon Public trading hall/iron farm',,,			        ],
+        [  -2050, -1935,'\uf494','Locketon Public trading hall/iron farm',,,			        ],
+        [  -2050, -1935,'\uf494','Locketon Public trading hall/iron farm',,,			        ]
+      ];
+      var arrayCoastalIcons = [
+        [ -292,-1572,'\uf64f',,,,'Village'		],
+        [  611, -828,'\uf64f',,,,'Village'						],
+        [ -648,-1639,'\uf64f',,,,'Village'						],
+        [ -269,-1980,'\uf64f',,,,'Village'						],
+        [ -726,-2095,'\uf64f',,,,'Village'						]
+      ];
+      var arrayCoastalPortals = [
+        [   0,  0,'\uf557','Spawn Portal',,,   ]
+      ];
+      var arrayRegions = [
+      // array structure: x-value, z-value, label
+        [  -80,-87,'Triad Shores',,,,			]
+      ];
+      var arrayCoastalRetail = [
+      // array structure: x-value, z-value, StoreName, Proprietor, GoodsSold
+        [   35, -185,'\uf3a5','Blackstar Market - Mazer Blackstar',,,],
+        [  579, -763,'\uf3a5','Cat\'s and Canoe\'s - Mazer Blackstar',,,],
+        [ -200, -200,'\uf3a5','Mall of Ryloth',,,],
+        [  160,  -40,'\uf3a5','Tipped Cow','Beef',,],
+        [ -251,   90,'\uf3a5','Leaky Cauldron',,,],
+        [ -100,  -33,'\uf3a5','The Lazy Grinders Tower',,,],
+        [   36, -124,'\uf3a5','Chop Chop Wood Shop','Logs',,]
+      ];
+      var arrayBigWater = [
+      // array structure: x-value, z-value, WaterFeatureName
+        //[  917,-4297,'Great Stone Bay'          ,,,         ,]
+      ];
+      var arraySmallWater = [
+      // array structure: x-value, z-value, WaterFeatureName
+          //[  420,   33,'~ Library Passage ~'      ,,, 50.0    ,]
+      ];
+      var arrayCoastalPeaks = [
+          //[  667,  -75,'CoastalMountable'         ,'\u25EE','elev. 223'   ,,]
+      ];
+      var arrayCoastalDepths = [
+          //[ -601,  -34,'Trench of Terror' ,'\u25BD'   ,'elev.  11',,]
+      ];
+      var arrayCoastalDetails = [
+      // These items should only show up at closest zoom
+          [ -182, -175,'Blue Bookstore','Enchanted Books',,,], 
+          [ -168, -210,'Ubaan Outfitters','Wool',,,],
+          [ -178, -201,'Greedy Piglin','Nether Goods',,,],
+          [ -185, -208,'Hive Mind','Honey and Flowers',,,],
+          [ -193, -188,'End Times','Shulkers & End Goods',,,]
+          ];
+      // The Coastal array structure:
+      // arrayName[0], font[1], fill color[2], stroke color[3], minZoom[4] 
+          var arrayCoastal = [
+              [arrayRegions   ,"italic    900 20px 'Font Awesome 5 Free'","yellow"   ,"black",3],
+              [arrayCoastalPOI    ,"          900 14px 'Font Awesome 5 Free'","white"    ,"black",7],
+              [arrayCoastalIcons  ,"          900 18px 'Font Awesome 5 Free'","red"      ,"white",6],
+              [arrayCoastalPortals,"          900 18px 'Font Awesome 5 Free'","fuchsia"  ,"black",6],
+              [arrayCoastalRetail ,"italic    900 14px 'Font Awesome 5 Free'","teal"   ,"black",7],
+              [arrayBigWater  ,"italic    900 16px 'Font Awesome 5 Free'","white"     ,"dodgerblue",5],
+              [arraySmallWater,"italic    900 14px 'Font Awesome 5 Free'","white"     ,"dodgerblue",8],
+              [arrayCoastalPeaks  ,"          900 14px 'Font Awesome 5 Free'","lime"     ,"black",6],
+              [arrayCoastalDepths ,"          900 14px 'Font Awesome 5 Free'","darkblue" ,"orange",6],
+              [arrayCoastalDetails,"italic    900 12px 'Font Awesome 5 Free'","teal"   ,"black",8],
+          ];
+          for (i=0; i < arrayCoastal.length; i++) {
+          //create array to hold the marker points
+          var markerFeatures = [];
+          var j;
+          for (j=0; j < arrayCoastal[i][0].length; j++) {
+              //build the text of the label
+              var textLine1 = arrayCoastal[i][0][j][2];
+              var textLine2 = arrayCoastal[i][0][j][3];
+              var textLine3 = arrayCoastal[i][0][j][4];
+              var textLines = textLine1;
+              if (textLine2){
+                  textLines = textLines + "\n" + textLine2
+              };
+              if (textLine3){
+                  textLines = textLines + "\n" + textLine3
+              };
+              var rotDegrees = arrayCoastal[i][0][j][5];
+              if (rotDegrees){
+                  rotRadians = ((rotDegrees * 3.14) / 180.0)
+              } else {
+                  rotRadians = 0.0
+              };
+            //define a style for the marker
+            var style = new ol.style.Style({
+              text: new ol.style.Text({
+                text: textLines,
+                // font: "900 14px 'Font Awesome 5 Free'",
+                // font: "400 16px 'Font Awesome 5 Free'",
+                font: arrayCoastal[i][1],
+                textBaseline: "center",
+                rotation: rotRadians,
+                fill: new ol.style.Fill({color: arrayCoastal[i][2]}),
+                // backgroundFill: new ol.style.Fill({color: "black"})
+                stroke: new ol.style.Stroke({color: arrayCoastal[i][3], width: 3})
+              })
+            });
+            //using the coordinate conversion formula that PapyrusCS uses for player positions, create a point at -23, 25.
+            var markerFeature = new ol.Feature({
+              geometry: new ol.geom.Point([
+                    (arrayCoastal[i][0][j][0] * zoomRatioForMaximumZoom) / minecraftTilesAtMostZoomedInLevel,
+                    (arrayCoastal[i][0][j][1] * -1 * zoomRatioForMaximumZoom) / minecraftTilesAtMostZoomedInLevel
+              ])
+            });
+            //apply the style
+            markerFeature.setStyle(style);
+            //push the constructed marker feature into the array
+            markerFeatures.push(markerFeature);
+          } // end for j
+          //create an OpenLayer source from the feature array
+          var markerSource = new ol.source.Vector({
+            features: markerFeatures
+          });
+          //create an OpenLayer vector layer from the source, set a minZoom so we only see the marker when zoomed in.
+          var markerLayer = new ol.layer.Vector({
+            minZoom: arrayCoastal[i][4],
+            source: markerSource
+          });
+          //add the layer
+          map.addLayer(markerLayer);
+          } // end for i
+          
+  // ***********************************************************************
+  
+//  var arrayLineTunnels = [ // group of lines sharing features (color,weight,style)
+      //[
+      //    'Great Stone Bay Tunnel', // name of line
+      //    [  860.0,-4191.0],// x,z of line start
+      //    [  968.0,-4191.0] // x,z of line end
+     // ]
+//  ];
+//  var arrayLineOver = [
+      //[
+     //     'Snappy Shuttle',
+     //     [  648.0, -768.0],
+      //    [  648.0, -109.0]
+      //]
+//  ];
+//  var arrayLineUndergroundWaterway = [
+    //  [
+    //      'Grand Central Inlet',
+    //      [  689.0,  119.0],
+    //      [  689.0,  -72.0]
+    //  ],
+    //  [
+    //      'Grand Central Inlet',
+    //      [  687.0,  119.0],
+    //      [  687.0,  -72.0]
+     // ],
+    //  [
+    //      'Grand Central Inlet',
+    //      [  687.0,  -72.0],
+    //      [  689.0,  -72.0]
+    //  ],
+    //  [
+    //      'Submarine Base',
+    //      [  577.0,  311.0],
+    //      [  538.0,  311.0]
+    //  ],
+    //  [
+    //      'Submarine Base',
+    //      [  577.0,  327.0],
+    //      [  538.0,  327.0]
+    //  ],
+    //  [
+    //      'Submarine Base',
+    //      [  538.0,  311.0],
+    //      [  538.0,  327.0]
+    //  ]
+//  ];
+  
+//  var arrayLines = [ // array of all line groups and their line styles
+  // Format: arrayLine name, stroke color, stroke weight, line dash
+    //  [arrayLineTunnels               ,"yellow"       ,"3",[10,5]],
+    //  [arrayLineOver                  ,"darkgray"     ,"1",[10,5]],
+    //  [arrayLineUndergroundWaterway   ,"dodgerblue"   ,"1",[10,5]]
+//  ];
+  
+//  for (i=0; i < arrayLines.length; i++) {
+//      for (j=0; j < arrayLines[i][0].length; j++) {
+//          linePoints = [
+//              [(arrayLines[i][0][j][1][0] * zoomRatioForMaximumZoom) / minecraftTilesAtMostZoomedInLevel,
+//            (arrayLines[i][0][j][1][1] * -1 * zoomRatioForMaximumZoom) / minecraftTilesAtMostZoomedInLevel
+//            ],
+//              [(arrayLines[i][0][j][2][0] * zoomRatioForMaximumZoom) / minecraftTilesAtMostZoomedInLevel,
+//            (arrayLines[i][0][j][2][1] * -1 * zoomRatioForMaximumZoom) / minecraftTilesAtMostZoomedInLevel
+//            ]
+ //         ];
+ //         var featureLine = new ol.Feature({
+//              geometry: new ol.geom.LineString(linePoints)
+//          });
+//          var vectorLine = new ol.source.Vector({});
+//          vectorLine.addFeature(featureLine);
+//  
+//          var vectorLineLayer = new ol.layer.Vector({
+//              source: vectorLine,
+//              minZoom: 7,
+//              style: new ol.style.Style({
+ //                 stroke: new ol.style.Stroke({
+//                      color: arrayLines[i][1],
+ //                     width: arrayLines[i][2],
+//                      lineDash: arrayLines[i][3]
+//                  })
+//              })
+ //         });
+ //         map.addLayer(vectorLineLayer);
+ //     }// end for j=
+//  }// end for i=
+    </script>
+    </body>
+  </html>
+  
