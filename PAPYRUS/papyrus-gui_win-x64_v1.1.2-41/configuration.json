@@ -19,7 +19,7 @@
     "heightmap_j": 10000,
     "heightmap_divider": 20,
     "heightmap_offset": 64,
-    "dimension": 0,
+    "dimension": 2,
     "profile": "Default",
     "html_filename": "indexnew.html",
     "image_format": "WebP",
