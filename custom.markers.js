@@ -38,49 +38,94 @@ Use the imageScale property if the pin image is too large.
 
 UnminedCustomMarkers = {
 
-    isEnabled: false,
+    isEnabled: true,
 
     markers: [
 
-        // Example 1: Simple marker
-        {
-            x: -200,
-            z: -200,
-            image: "custom.pin.png",
-            imageAnchor: [0.5, 1],
-            imageScale: 0.5,
-        },
-
-        // Example 2: Marker with text
         {
             x: 0,
             z: 0,
-            image: "custom.pin.png",
-            imageAnchor: [0.5, 1],
-            imageScale: 0.5,
-            text: "Marker with text",
-            textColor: "red", 
+            minmapzoom: 2,
+            maxmapzoom: 5,
+            text: "Spawn Portal\n\uf557",
+            textColor: "#a839a3",
+            strokeColor: "#ffffff",
             offsetX: 0,
-            offsetY: 20,
-            font: "bold 20px Calibri,sans serif",
+            offsetY: 0,
+            font: "italic 900 20px 'Font Awesome 5 Free'",
         },
-
-        // Example 3: Text only
         {
-            x: 200,
-            z: 200,
-            text: "Text only", 
-            textColor: "yellow", 
+            x: 560,
+            z: -240,
+            minmapzoom: 2,
+            maxmapzoom: 5,
+            text: "North Spawn Portal\n\uf557",
+            textColor: "#a839a3",
+            strokeColor: "#ffffff",
             offsetX: 0,
-            offsetY: 0, 
-            font: "bold 50px Calibri,sans serif",
+            offsetY: 0,
+            font: "italic 900 20px 'Font Awesome 5 Free'",
         },
-
-        // add your markers here
-
-
-
-
-        // do not delete the following two closing brackets
+        {
+            x: 480,
+            z: 400,
+            minmapzoom: 2,
+            maxmapzoom: 5,
+            text: "East Spawn Portal\n\uf557",
+            textColor: "#a839a3",
+            strokeColor: "#ffffff",
+            offsetX: 0,
+            offsetY: 0,
+            font: "italic 900 20px 'Font Awesome 5 Free'",
+        },
+        {
+            x: 130,
+            z: -15,
+            minmapzoom: 3,
+            maxmapzoom: 5,
+            text: "Tree Farm\n\uf1bb",
+            textColor: "#0be016",
+            strokeColor: "#ffffff",
+            offsetX: 0,
+            offsetY: 0,
+            font: "italic 900 20px 'Font Awesome 5 Free'",
+        },
+        {
+            x: 115,
+            z: 78,
+            minmapzoom: 2,
+            maxmapzoom: 5,
+            text: "\uf13d\nSpawn Ship",
+            textColor: "#14959e",
+            strokeColor: "#ffffff",
+            offsetX: 0,
+            offsetY: 0,
+            font: "italic 900 20px 'Font Awesome 5 Free'",
+        },
+        {
+            x: 70,
+            z: 32,
+            minmapzoom: 3,
+            maxmapzoom: 5,
+            text: "\uf13d\nTim, Tom, Tam\n\uf51e,\uf522",
+            textColor: "#14959e",
+            strokeColor: "#ffffff",
+            offsetX: 0,
+            offsetY: 0,
+            font: "italic 900 12px 'Font Awesome 5 Free'",
+        },
+        {
+            x: 6,
+            z: 67,
+            minmapzoom: 2,
+            maxmapzoom: 5,
+            text: "\uf13d\nEvent Ship",
+            textColor: "#14959e",
+            strokeColor: "#ffffff",
+            offsetX: 0,
+            offsetY: 0,
+            font: "italic 900 12px 'Font Awesome 5 Free'",
+        }
+        
     ]
 }
