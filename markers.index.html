@@ -114,11 +114,8 @@
     <script type="text/javascript" src="unmined.map.regions.js"></script>
 
     <!-- Custom markers -->
-	  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-
-    <!-- Custom markers -->
-    <script type="text/javascript" src="custom.markers.js"></script>
 
     <!-- uNmINeD JS -->
     <script type="text/javascript" src="unmined.openlayers.js"></script>
@@ -163,17 +160,22 @@
     <div id="map"></div>
 
     <script type="text/javascript">
-
-        document.title = UnminedMapProperties.worldName + " - " + document.title;
-
-        if (UnminedCustomMarkers && UnminedCustomMarkers.isEnabled && UnminedCustomMarkers.markers) {
-            UnminedMapProperties.markers = UnminedMapProperties.markers.concat(UnminedCustomMarkers.markers);
-        }
-
+		document.title = UnminedMapProperties.worldName + " - " + document.title;
+			$( document ).ready(function() {
+				UnminedCustomMarkers = { isEnabled: true, markers: [] }
+				$.getJSON("https://opensheet.elk.sh/1NNQfzHSqNSg6u8hq-QauTwwmoQtdzIM7wQEPQ2M1pOo/Overworld", function(result){
+					$.each( result, function( key, val ) {
+						temptext = '"'+val.text+'"';
+						val.text = JSON.parse(temptext);
+						UnminedCustomMarkers.markers.push(val);
+					});
+				UnminedMapProperties.markers = UnminedCustomMarkers.markers;
+			console.log(UnminedCustomMarkers.markers);
         let unmined = new Unmined();
         unmined.map('map', UnminedMapProperties, UnminedRegions);
-
+            });
+        })
     </script>
 </body>
 
-</html>
+</html> 
