@@ -6,9 +6,9 @@ var UnminedMapProperties = {
     imageFormat: "webp",
     minRegionX: -7,
     minRegionZ: -7,
-    maxRegionX: 6,
+    maxRegionX: 8,
     maxRegionZ: 6,
-    worldName: "CCS8 01-26-22",
+    worldName: "Coastal S8: Coral Crown 01/29/22 21:01:15 - Copy",
     background: "",
     markers: new Array()
 }
