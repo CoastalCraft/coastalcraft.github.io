@@ -161,8 +161,57 @@ class Unmined {
         });
 
         if (options.markers) {
-            var markersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection);
-            map.addLayer(markersLayer);
+            var markers = options.markers;
+            var features = [];
+
+            for (var i = 0; i < markers.length; i++) {
+                var item = markers[i];
+                var longitude = item.x;
+                var latitude = item.z;
+                var minMapZoom = item.minmapzoom;
+
+                var style = new ol.style.Style();
+                if (item.image)
+                    style.setImage(new ol.style.Icon({
+                        src: item.image,
+                        anchor: item.imageAnchor,
+                        scale: item.imageScale
+                    }));
+
+                if (item.text)
+                    style.setText(new ol.style.Text({
+                        text: item.text,
+                        font: item.font,
+                        offsetX: item.offsetX,
+                        offsetY: item.offsetY,
+                        stroke: new ol.style.Stroke({ 
+                            color: item.strokeColor,
+                           width: 2
+                        }),
+                        fill: new ol.style.Fill({
+                            color: item.textColor
+                        })
+                    }));
+
+                var feature = new ol.Feature({
+                    geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
+                });        
+
+                feature.setStyle(style);
+
+                features.push(feature);
+
+                var vectorSource = new ol.source.Vector({
+                    features: features
+                });
+
+                var vectorLayer = new ol.layer.Vector({
+                    minZoom: minMapZoom,
+                    source: vectorSource
+                });
+
+                map.addLayer(vectorLayer);
+            }
         }
         
         if (options.background){
@@ -170,60 +219,6 @@ class Unmined {
         }
 
         this.openlayersMap = map;
-    }
-
-    createMarkersLayer(markers, dataProjection, viewProjection) {
-        var features = [];
-
-        for (var i = 0; i < markers.length; i++) {
-            var item = markers[i];
-            var longitude = item.x;
-            var latitude = item.z;
-            var minMapZoom = item.minmapzoom;
-            var maxMapZoom = item.maxmapzoom;
-
-            var feature = new ol.Feature({
-                geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
-            });
-
-            var style = new ol.style.Style();
-            if (item.image)
-                style.setImage(new ol.style.Icon({
-                    src: item.image,
-                    anchor: item.imageAnchor,
-                    scale: item.imageScale
-                }));
-
-            if (item.text)
-                style.setText(new ol.style.Text({
-                    text: item.text,
-                    font: item.font,
-                    offsetX: item.offsetX,
-                    offsetY: item.offsetY,
-                    stroke: new ol.style.Stroke({ 
-                        color: item.strokeColor,
-                        width: 2
-                    }),
-                    fill: new ol.style.Fill({
-                        color: item.textColor
-                    })
-                }));
-
-            feature.setStyle(style);
-
-            features.push(feature);
-        }
-
-        var vectorSource = new ol.source.Vector({
-            features: features
-        });
-
-        var vectorLayer = new ol.layer.Vector({
-            minZoom: minMapZoom,
-            maxZoom: maxMapZoom,
-            source: vectorSource
-        });
-        return vectorLayer;
     }
 
 }
