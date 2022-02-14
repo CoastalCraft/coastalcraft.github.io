@@ -169,6 +169,16 @@ class Unmined {
                 var longitude = item.x;
                 var latitude = item.z;
                 var minMapZoom = item.minmapzoom;
+                var textLine1 = item.text1;
+                var textLine2 = item.text2;
+                var textLine3 = item.text3;
+                var textLines = textLine1;
+                if (textLine2){
+                    textLines = textLines + "\n" + textLine2
+                };
+                if (textLine3){
+                    textLines = textLines + "\n" + textLine3
+                };
 
                 var style = new ol.style.Style();
                 if (item.image)
@@ -178,15 +188,15 @@ class Unmined {
                         scale: item.imageScale
                     }));
 
-                if (item.text)
+                if (textLines)
                     style.setText(new ol.style.Text({
-                        text: item.text,
+                        text: textLines,
                         font: item.font,
                         offsetX: item.offsetX,
                         offsetY: item.offsetY,
                         stroke: new ol.style.Stroke({ 
                             color: item.strokeColor,
-                           width: 2
+                            width: 2
                         }),
                         fill: new ol.style.Fill({
                             color: item.textColor
