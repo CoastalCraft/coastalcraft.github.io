@@ -4,11 +4,11 @@ var UnminedMapProperties = {
     maxZoom: 2,
     defaultZoom: 0,
     imageFormat: "webp",
-    minRegionX: -2,
+    minRegionX: -3,
     minRegionZ: -4,
     maxRegionX: 2,
     maxRegionZ: 0,
-    worldName: "Coastal S8: Coral Crown 02/07/22 - Nether",
+    worldName: "Coastal S8: Coral Crown 03/13/22 16:36:22 - Copy",
     background: "#000000",
     markers: new Array()
 }
