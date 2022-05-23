@@ -4,11 +4,11 @@ var UnminedMapProperties = {
     maxZoom: 2,
     defaultZoom: 0,
     imageFormat: "webp",
-    minRegionX: -3,
-    minRegionZ: -4,
-    maxRegionX: 2,
+    minRegionX: -5,
+    minRegionZ: -6,
+    maxRegionX: 7,
     maxRegionZ: 0,
-    worldName: "Coastal S8: Coral Crown 03/13/22 16:36:22 - Copy",
+    worldName: "Coastal S8: Coral Crown 05/22/22 07:42:02 - Copy",
     background: "#000000",
     markers: new Array()
 }
