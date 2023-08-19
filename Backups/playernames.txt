@@ -1,0 +1,127 @@
+// Player names
+// ============
+//
+//
+// uNmIneD use mappings from this file to determine player names from IDs.
+//
+// - Add your player IDs and names to this file, one player ID per line
+// - For Bedrock Server players you can use MSAIDs
+// - If you use Bedrock Viz, you can copy players form your bedrock_viz.cfg
+// - uNmINeD GUI also updates this file when you add or modify player names
+//
+//
+// Accepted formats:
+//
+// 1. Simple:
+//
+//      playerId playerName
+//
+//	  Examples:
+//
+//		00000000-0000-0000-0000-000000000000 nobody
+//      server_00000000-0000-0000-0000-000000000000 nobody
+//
+// 2. Copied from bedrock_viz.cfg:
+//
+//      player-id: playerId playerName
+//
+//	  Example:
+//
+//      player-id: server_00000000-0000-0000-0000-000000000000 nobody
+//
+// Lines starting with // or # are ignored.
+// Values copied from bedrock_viz.cfg are ignored except for player names.
+//
+
+
+//df5e259a-16ef-4f98-a6f2-5f29142634df megasys
+
+2cc7aba0-7bae-3e5d-accc-0b8624d33a52 BSavage81
+077fb43d-4762-35c4-8cb6-f2c925d2db32 xDevinex#1477
+3e72cc04-a605-3a67-9316-f481512606e8 quick_swingbin2
+f4fbef76-5bd5-3b95-84f8-a846d2693bf9 BSavage81_2
+49403964-4b56-30f2-8f25-1071ec812a86 DrunkBobo222 
+50f2ff8a-a50f-36cb-be62-5e950e6f0d51 CaptnZapYT
+08685449-c739-3f9a-854d-c2620a5554cc Darengin
+539a3ebf-efff-3517-ba93-ca744535541d Tchanka
+e01aa40d-4692-31c8-9a5e-95a7c38b05bb Pinkieleigh06
+e9aff811-6c5e-3b8f-81d4-508d988ca9ea Snapp
+577656ec-7290-3036-8ec4-6a24ab4aef6d Coren
+6b804e55-cde9-37e3-a824-3bdd5122474f Ajinthehuman
+c2520da8-0b17-3f1a-9130-ba4c47c592b1 WickedKiloNova
+2c4e1d2f-1f92-3ac2-9268-8aef01fd7c56 SpikeBeer
+0e20c22e-842d-30fd-bb83-654e61cb11a7 Capt_cookstar
+4b4560ae-8d8a-3910-a88a-161697e0949d RainbowCat217
+51904d63-7e01-3e66-b451-b02a6cc34c50 ???
+22930929-4d0e-3736-9ac6-065f380a03c3 ashley20025076
+673a9fa4-8651-32d5-acb0-889404536d7b Jon_Bon_Pwny
+83febdb7-e800-3d63-946e-9abba284c060 AvgZing
+55ce6eb7-c014-3ac3-b08b-6f36637e5779 MazerBlackstar
+cdcba3ee-b270-3e21-8fb5-ea9a2ae69bc4 SparingSwine
+ea09c070-66fe-3ded-bdd6-8e28b3b37251 IceCowboyD5
+bf5761e8-b504-33b8-801a-6e704541f5b1 SpiderWebNinja
+64266ac3-ffe6-3754-8d0a-bce4121c2177 RoeboatGNAC
+5e79611f-a4fe-3bf4-b557-3da790d12e9c MsGrumpyKat
+4b1475c3-6ef2-3680-9e08-efae7d709580 TidierTable9168
+24aad417-1cad-301e-8e95-846d0f5c6cd9 CaptianMot
+c561a7d1-e3f5-3657-8d33-0d3217a0e102 Searcher101f
+36554bc8-8fde-3edb-b634-7afbd24e2f65 PoxNox
+fe1a409e-eb51-3714-876e-aee3c8f61aeb Riovanes6429
+ae851ae4-2ca0-33b1-b572-b515ee20191b Hipmantis
+6db5296d-c237-3ed1-b9de-33fccd872edd SSAce26
+7ae87ba9-890a-390a-9a53-dd4900ac997d RepairManDan478
+fb414604-e9ef-3241-a6b1-1bfa313e2739 MoMiDeZisa
+c8af0651-b2fc-3ab7-80ed-3bfc8bd065a4 Southern_Addict
+b63403ef-7b5f-3d5d-a186-6844c0958d16 VAX2005
+a77cf31a-e233-3182-b934-484e2aacc115 Baal_Talisac
+dc7e61f5-03f1-3bfe-bbb0-8e29fe3cbe83 JeanDeGrin
+5cf5119e-13b4-3165-96a3-66ac0844afe3 RylothLocke8
+2193919e-a9cf-3b0c-b734-86f9ac617c5f StockTheKid
+4ca81965-7961-3b3a-bbbe-abfb88e2b8a5 tacotuesday
+b680aefb-e941-3ca8-92ee-3a13ef0a8277 ??????
+ee180861-0fed-3f85-8e52-6c624a5eda3e ARK_Gunslinger
+4982c195-2e3c-3f15-87fc-9442aea47a82 ajalpaca
+10658d81-df76-3875-9269-a245754b21b4 ???????
+cacea795-80b8-390b-9af9-72346d5df988 SallyZo2012
+572aa771-00b6-3b21-9570-d87c96d73b18 FutureStorm9927
+9a41f218-c3c8-3b5f-8a5e-8295df5d89b5 happ1jack
+a7d23c8c-fa15-3a95-969f-3c88cdfb5c62 ????????
+a3fd43af-cdb7-30be-8565-fba8084f20ca ?????????
+dad86279-ef6e-3d94-a524-c7b937d14408 Double222235
+6138d03a-1e79-37f4-9025-c9b2c6a83c25 robbie_kissinger
+0d6eb135-585b-37dd-b1cf-a8b93e5574be ?
+d2833f4f-79ee-351f-895e-0d65e74dbf43 jdreader11
+bc65e1e1-efb7-3131-a67c-7dd246aeb319 Evadark
+817906bd-de1e-37ae-a6e0-ceda1f0f5c96 ??
+1126fdd1-be71-395f-bd59-1023f8c31d55 ????
+48bb71e9-273d-37a2-96aa-17ac1b33649f ?????
+8f016460-f21c-3053-99cc-930d946f7869 ??????????
+b5804a29-852b-3d29-a8fa-3ac830ec212a ???????????
+97ffc97d-2cee-32f7-80da-6e8f12bba252 SupernovaFox7
+b6c5df76-8bdd-3926-b7ee-25cd88108a52 !
+8f469719-93b2-3f62-bb47-b6f71aea6611 Pillow_Pet_98
+62e0a4fd-8847-3ac5-afc6-7b60cffc0a63 DAT_ONE_BLAKE
+e133b2d4-39b1-3d4e-9ae9-57dc68dc5c8f XxDiRtYxTaLyxX
+498d680a-35f4-336a-bd52-c58af3fe6044 !!
+baf2f3d1-b0bf-3e1a-88db-df80e6be7797 HeyoItsMay0
+c3caeb8c-9192-38d3-837d-84f5afbac257 CrazyOldYeti
+b59bff30-8c4e-3130-8707-a4a6bf3c2482 Suddenlama3587
+10cfaf97-3654-3eb5-8c69-c038df67807a !!!
+ae718a2c-8840-359f-9049-8b4f6ae12c87 !!!!
+ba60b4d4-fb34-3c02-8d30-3986c6e20d38 !!!!!
+72cdc0da-00f4-3aa8-aa5b-1cc0a3c27405 wanderedwarlock
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
