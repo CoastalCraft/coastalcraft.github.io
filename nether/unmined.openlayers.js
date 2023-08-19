@@ -161,67 +161,8 @@ class Unmined {
         });
 
         if (options.markers) {
-            var markers = options.markers;
-            var features = [];
-
-            for (var i = 0; i < markers.length; i++) {
-                var item = markers[i];
-                var longitude = item.x;
-                var latitude = item.z;
-                var minMapZoom = item.minmapzoom;
-                var textLine1 = item.text1;
-                var textLine2 = item.text2;
-                var textLine3 = item.text3;
-                var textLines = textLine1;
-                if (textLine2){
-                    textLines = textLines + "\n" + textLine2
-                };
-                if (textLine3){
-                    textLines = textLines + "\n" + textLine3
-                };
-
-                var style = new ol.style.Style();
-                if (item.image)
-                    style.setImage(new ol.style.Icon({
-                        src: item.image,
-                        anchor: item.imageAnchor,
-                        scale: item.imageScale
-                    }));
-
-                if (textLines)
-                    style.setText(new ol.style.Text({
-                        text: textLines,
-                        font: item.font,
-                        offsetX: item.offsetX,
-                        offsetY: item.offsetY,
-                        stroke: new ol.style.Stroke({ 
-                            color: item.strokeColor,
-                            width: 2
-                        }),
-                        fill: new ol.style.Fill({
-                            color: item.textColor
-                        })
-                    }));
-
-                var feature = new ol.Feature({
-                    geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
-                });        
-
-                feature.setStyle(style);
-
-                features.push(feature);
-
-                var vectorSource = new ol.source.Vector({
-                    features: features
-                });
-
-                var vectorLayer = new ol.layer.Vector({
-                    minZoom: minMapZoom,
-                    source: vectorSource
-                });
-
-                map.addLayer(vectorLayer);
-            }
+            var markersLayer = this.createMarkersLayer(options.markers, dataProjection, viewProjection);
+            map.addLayer(markersLayer);
         }
         
         if (options.background){
@@ -229,6 +170,95 @@ class Unmined {
         }
 
         this.openlayersMap = map;
+    }
+
+    createMarkersLayer(markers, dataProjection, viewProjection) {
+        var features = [];
+
+        for (var i = 0; i < markers.length; i++) {
+            var item = markers[i];
+            var longitude = item.x;
+            var latitude = item.z;
+
+            var feature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
+            });
+
+            var style = new ol.style.Style();
+            if (item.image)
+                style.setImage(new ol.style.Icon({
+                    src: item.image,
+                    anchor: item.imageAnchor,
+                    scale: item.imageScale
+                }));
+
+            if (item.text) {                               
+                style.setText(new ol.style.Text({
+                    text: item.text,
+                    font: item.font,
+                    offsetX: item.offsetX,
+                    offsetY: item.offsetY,
+                    fill: item.textColor ? new ol.style.Fill({
+                        color: item.textColor
+                    }) : null,
+                    padding: item.textPadding ?? [2, 4, 2, 4],
+                    stroke: item.textStrokeColor ? new ol.style.Stroke({
+                        color: item.textStrokeColor,
+                        width: item.textStrokeWidth
+                    }) : null,
+                    backgroundFill: item.textBackgroundColor ? new ol.style.Fill({
+                        color: item.textBackgroundColor
+                    }) : null,
+                    backgroundStroke: item.textBackgroundStrokeColor ? new ol.style.Stroke({
+                        color: item.textBackgroundStrokeColor,
+                        width: item.textBackgroundStrokeWidth
+                    }) : null,
+                }));
+            }
+
+            feature.setStyle(style);
+
+            features.push(feature);
+        }
+
+        var vectorSource = new ol.source.Vector({
+            features: features
+        });
+
+        var vectorLayer = new ol.layer.Vector({
+            source: vectorSource
+        });
+        return vectorLayer;
+    }
+    
+    defaultPlayerMarkerStyle = {
+            image: "playerimages/default.png",
+            imageAnchor: [0.5, 0.5],
+            imageScale: 0.25,
+
+            textColor: "white",
+            offsetX: 0,
+            offsetY: 20,
+            font: "14px Arial",
+            //textStrokeColor: "black",
+            //textStrokeWidth: 2,
+            textBackgroundColor: "#00000088",
+            //textBackgroundStrokeColor: "black",
+            //textBackgroundStrokeWidth: 1,
+            textPadding: [2, 4, 2, 4],
+    }
+
+    playerToMarker(player) {
+        var marker = Object.assign({}, this.defaultPlayerMarkerStyle);
+        marker.x = player.x;
+        marker.z = player.z;
+        marker.text = player.name;
+        return marker;
+    }
+
+    createPlayerMarkers(players) {
+        let markers = players.map(player => this.playerToMarker(player));
+        return markers;
     }
 
 }
