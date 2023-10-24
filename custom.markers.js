@@ -49,7 +49,6 @@ UnminedCustomMarkers = {
             image: "custom.pin.png",
             imageAnchor: [0.5, 1],
             imageScale: 0.5,
-            minmapzoom: -2,
         },
 
         // Example 2: Marker with text
@@ -64,7 +63,6 @@ UnminedCustomMarkers = {
             offsetX: 0,
             offsetY: 20,
             font: "bold 20px Calibri,sans serif",
-            minmapzoom: -4,
         },
 
         // Example 3: Text only
@@ -72,11 +70,10 @@ UnminedCustomMarkers = {
             x: 200,
             z: 200,
             text: "Text only", 
-            textColor: "red", 
+            textColor: "yellow", 
             offsetX: 0,
             offsetY: 0, 
             font: "bold 50px Calibri,sans serif",
-            minmapzoom: 4,
         },
 
         // add your markers here
