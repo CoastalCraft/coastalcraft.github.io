@@ -5,10 +5,10 @@ var UnminedMapProperties = {
     defaultZoom: 0,
     imageFormat: "webp",
     minRegionX: -6,
-    minRegionZ: -6,
-    maxRegionX: 8,
-    maxRegionZ: 6,
-    worldName: "Coastal S9: Sakura Shores 10/24/23 09:44:44 - Copy",
+    minRegionZ: -7,
+    maxRegionX: 10,
+    maxRegionZ: 7,
+    worldName: "Coastal S9: Sakura Shores - Copy",
     background: "#000000",
     markers: new Array()
 }
