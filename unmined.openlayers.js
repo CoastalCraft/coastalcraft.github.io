@@ -173,16 +173,24 @@ class Unmined {
     }
 
     createMarkersLayer(markers, dataProjection, viewProjection) {
+
         var features = [];
 
         for (var i = 0; i < markers.length; i++) {
             var item = markers[i];
             var longitude = item.x;
             var latitude = item.z;
-
-            var feature = new ol.Feature({
-                geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
-            });
+            var minMapZoom = item.minmapzoom;
+            var textLine1 = item.text1;
+            var textLine2 = item.text2;
+            var textLine3 = item.text3;
+            var textLines = textLine1;
+            if (textLine2){
+                textLines = textLines + "\n" + textLine2
+            };
+            if (textLine3){
+                textLines = textLines + "\n" + textLine3
+            };
 
             var style = new ol.style.Style();
             if (item.image)
@@ -192,29 +200,24 @@ class Unmined {
                     scale: item.imageScale
                 }));
 
-            if (item.text) {                               
+            if (textLines)
                 style.setText(new ol.style.Text({
-                    text: item.text,
+                    text: textLines,
                     font: item.font,
                     offsetX: item.offsetX,
                     offsetY: item.offsetY,
-                    fill: item.textColor ? new ol.style.Fill({
+                    stroke: new ol.style.Stroke({ 
+                        color: item.strokeColor,
+                        width: 2
+                    }),
+                    fill: new ol.style.Fill({
                         color: item.textColor
-                    }) : null,
-                    padding: item.textPadding ?? [2, 4, 2, 4],
-                    stroke: item.textStrokeColor ? new ol.style.Stroke({
-                        color: item.textStrokeColor,
-                        width: item.textStrokeWidth
-                    }) : null,
-                    backgroundFill: item.textBackgroundColor ? new ol.style.Fill({
-                        color: item.textBackgroundColor
-                    }) : null,
-                    backgroundStroke: item.textBackgroundStrokeColor ? new ol.style.Stroke({
-                        color: item.textBackgroundStrokeColor,
-                        width: item.textBackgroundStrokeWidth
-                    }) : null,
+                    })
                 }));
-            }
+
+            var feature = new ol.Feature({
+                geometry: new ol.geom.Point(ol.proj.transform([longitude, latitude], dataProjection, viewProjection))
+            });   
 
             feature.setStyle(style);
 
@@ -226,6 +229,7 @@ class Unmined {
         });
 
         var vectorLayer = new ol.layer.Vector({
+            minZoom: minMapZoom,
             source: vectorSource
         });
         return vectorLayer;
