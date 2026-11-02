@@ -1,20 +1,21 @@
-# CoastalCraft website and Season 9 archive
+# CoastalCraft website
 
-Main website: https://coastalcraft.github.io/
-Season 9 Overworld: https://coastalcraft.github.io/season-9/
-Season 9 Nether: https://coastalcraft.github.io/nether/
-Season 9 End: https://coastalcraft.github.io/end/
-Season 10: https://coastalcraft.github.io/season-10/
+Public website: https://coastalcraft.github.io/
 
-## Editing
+The homepage is index.html, styled by home.css, with images and the favicon in
+assets/. GitHub Pages publishes master from the repository root; .nojekyll skips
+Jekyll processing.
 
-The homepage is index.html, styled by home.css. Its images and favicon are in assets/.
-GitHub Pages publishes master from the repository root; .nojekyll bypasses Jekyll.
+Each season has its own CoastalCraft/season-N repository and Pages address:
+https://coastalcraft.github.io/season-N/ (Seasons 2–10).
 
-The Season 9 Overworld viewer is season-9/index.html. Its base URL points to the
-root to reuse the original tiles, libraries, and map data without relocating them.
-Existing Nether, End, and marker URLs are retained. Old root marker hashes redirect
-to the Season 9 viewer. Do not export a map directly over the homepage.
+Season 9's map assets now live in CoastalCraft/season-9, including its Overworld,
+Nether, End, and marker pages. This website retains tiny redirects for legacy
+map page URLs, preserving query strings and coordinate hashes. No map tiles or
+viewer libraries remain in the current website tree.
 
-Season 10 is maintained in the separate CoastalCraft/season-10 repository.
-The old Google Site was not changed; its private content has not been imported.
+Seasons 2–8 currently have archive landing pages pending map rendering/export.
+World downloads remain in Google Drive. See docs/map-archives.md for the local
+checkout layout and migration notes.
+
+The old Google Site is unchanged; its private content has not been imported.
