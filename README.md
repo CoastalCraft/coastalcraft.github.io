@@ -7,7 +7,7 @@ assets/. GitHub Pages publishes master from the repository root; .nojekyll skips
 Jekyll processing.
 
 Each season has its own CoastalCraft/season-N repository and Pages address:
-https://coastalcraft.github.io/season-N/ (Seasons 2–10).
+https://coastalcraft.github.io/season-N/ (Seasons 1–10).
 
 Season 9's map assets now live in CoastalCraft/season-9, including its Overworld,
 Nether, End, and marker pages. This website retains tiny redirects for legacy

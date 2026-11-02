@@ -24,3 +24,5 @@ and was left untouched. Use the main website checkout above for website updates.
 
 Legacy Season 9 map/marker HTML addresses on the main website redirect to the
 corresponding pages in season-9, retaining query strings and URL hashes.
+
+Season 1 now has an origin-story page in CoastalCraft/season-1. Coastal Adventures was started by Hybrinit, who sought out members through the old Minecraft forums (history supplied by the user). Its checkout is Unmined\SeasonArchives\season-1.
